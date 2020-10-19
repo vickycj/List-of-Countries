@@ -69,8 +69,16 @@ class MainActivity : BaseActivity() {
     private fun inilializingRecyclerView() {
         recyclerView = recyclerViewList
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = DataAdapter(viewModel.getCountryData(), this)
+        adapter = DataAdapter(viewModel.getCountryData(), this) {
+            onItemClicked(it)
+        }
         recyclerView.adapter = adapter
+    }
+
+    private fun onItemClicked(it: CountryBasicInfo) {
+        val intent = Intent(this, DetailsActivity::class.java)
+        intent.putExtra(AppConstants.COUNTRY_DETAIL_ID,it.countryId)
+        startActivity(intent)
     }
 
     private fun initializeValues() {

@@ -20,7 +20,7 @@ interface CountryDao {
     @Query("DELETE FROM CountryEntity")
     fun emptyCountryList()
 
-    @Query(value = "SELECT name, flag FROM CountryEntity")
+    @Query(value = "SELECT name, flag, countryId FROM CountryEntity")
     fun getAllCountries() : Flowable<List<CountryBasicInfo>>
 
     @Query(value = "SELECT * FROM CountryEntity WHERE countryId = :id")
