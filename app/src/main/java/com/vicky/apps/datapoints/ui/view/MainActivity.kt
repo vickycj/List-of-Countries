@@ -21,7 +21,12 @@ import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jakewharton.rxbinding2.widget.textChanges
 import com.vicky.apps.datapoints.base.AppConstants
+import com.vicky.apps.datapoints.ui.model.CountryBasicInfo
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : BaseActivity() {
@@ -42,7 +47,23 @@ class MainActivity : BaseActivity() {
         setContentView(com.vicky.apps.datapoints.R.layout.activity_main)
         initializeValues()
         inilializingRecyclerView()
+        initialiseSearchView()
         viewModel.getCountryBasicInfo()
+    }
+
+    private fun initialiseSearchView() {
+        compositeDisposable.add(searchField
+            .textChanges()
+            .debounce(500, TimeUnit.MILLISECONDS)
+            .subscribe {
+                viewModel
+                    .search(it.toString())
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                       updateData(viewModel.getFilteredCountryData())
+                    }
+            })
     }
 
     private fun inilializingRecyclerView() {
@@ -69,11 +90,11 @@ class MainActivity : BaseActivity() {
 
 
     private fun successCallback(){
-        updateData()
+        updateData(viewModel.getCountryData())
     }
 
-    private fun updateData(){
-        adapter.updateData(viewModel.getCountryData())
+    private fun updateData(data:List<CountryBasicInfo>){
+        adapter.updateData(data)
     }
 
 

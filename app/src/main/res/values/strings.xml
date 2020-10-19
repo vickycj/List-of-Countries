@@ -3,4 +3,5 @@
     <string name="list_of_countries">List of Countries</string>
     <string name="country_details">CountryDetails</string>
     <string name="api_failure_message">API call failed</string>
+    <string name="search_countries">Search countries</string>
 </resources>

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.vicky.apps.datapoints.common.SchedulerProvider
 import com.vicky.apps.datapoints.data.Repository
 import com.vicky.apps.datapoints.ui.model.CountryBasicInfo
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
@@ -23,10 +24,12 @@ class MainViewModel(
 
     private lateinit var compositeDisposable: CompositeDisposable
 
-
     private var mainData: List<CountryBasicInfo> = ArrayList()
+    private var filteredData: List<CountryBasicInfo> = ArrayList()
 
     fun getCountryData() = mainData
+
+    fun getFilteredCountryData() = filteredData
 
     fun setCompositeData(compositeDisposable: CompositeDisposable) {
         this.compositeDisposable = compositeDisposable
@@ -48,6 +51,14 @@ class MainViewModel(
     fun generateCall(): Flowable<List<CountryBasicInfo>> {
         return repository.getCountryBasicInfo()
             .compose(schedulerProvider.getSchedulersForFlowable())
+    }
+
+    fun search(query: String): Completable = Completable.create { it ->
+        val list = mainData.filter {
+            it.name.contains(query)
+        }.toList()
+        filteredData = list
+        it.onComplete()
     }
 
 
