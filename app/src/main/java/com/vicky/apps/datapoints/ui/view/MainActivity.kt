@@ -18,7 +18,9 @@ import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
 import android.view.MenuItem
+import android.widget.LinearLayout
 import android.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.vicky.apps.datapoints.base.AppConstants
 
 
@@ -38,18 +40,15 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.vicky.apps.datapoints.R.layout.activity_main)
-        //inilializingRecyclerView()
-       // initializeValues()
-
+        initializeValues()
+        inilializingRecyclerView()
+        viewModel.getCountryBasicInfo()
     }
 
     private fun inilializingRecyclerView() {
-
-        recyclerView.layoutManager = GridLayoutManager(this, 3)
-
-
-        adapter = DataAdapter()
-
+        recyclerView = recyclerViewList
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = DataAdapter(viewModel.getCountryData())
         recyclerView.adapter = adapter
     }
 
@@ -66,26 +65,20 @@ class MainActivity : BaseActivity() {
                 failureCallback()
             }
         })
-
-
-
-       // viewModel.getDataFromRemote()
     }
 
-    private fun sortAndUpdateData() {
-        updateData()
-    }
+
     private fun successCallback(){
         updateData()
     }
 
     private fun updateData(){
-        adapter.updateData()
+        adapter.updateData(viewModel.getCountryData())
     }
 
 
     private fun failureCallback(){
-        Toast.makeText(this,"API failed",Toast.LENGTH_LONG).show()
+        Toast.makeText(this,"DATA FETCH failed",Toast.LENGTH_LONG).show()
     }
 
 

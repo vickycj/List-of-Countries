@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/childHeadView"
+    android:layout_marginBottom="@dimen/DP_8"
+    android:layout_marginTop="@dimen/DP_8"
+    android:background="@color/colorPrimaryDark">
+
+
+    <ImageView
+        android:id="@+id/flagView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/avatar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/countryName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/childHeadView"
-        android:layout_marginBottom="@dimen/DP_8"
-        android:layout_marginTop="@dimen/DP_8"
-        android:background="@color/colorPrimaryDark">
-
-
-
+        android:layout_marginStart="32dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/textColor"
+        app:layout_constraintBottom_toBottomOf="@+id/flagView"
+        app:layout_constraintStart_toEndOf="@+id/flagView"
+        app:layout_constraintTop_toTopOf="@+id/flagView"
+        tools:text="@tools:sample/first_names" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
