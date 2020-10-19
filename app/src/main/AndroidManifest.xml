@@ -16,7 +16,7 @@
             android:parentActivityName=".ui.view.MainActivity" >>
 
         </activity>
-        <activity android:name=".ui.view.SplashActivity">
+        <activity android:name=".ui.view.SplashActivity" android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,6 +24,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:launchMode="singleTop"
             android:name=".ui.view.MainActivity"
             android:theme="@style/ActivityTheme"></activity>
 

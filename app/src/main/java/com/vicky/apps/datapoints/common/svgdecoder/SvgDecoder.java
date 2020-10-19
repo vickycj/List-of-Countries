@@ -6,6 +6,7 @@ import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.ResourceDecoder;
 import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.resource.SimpleResource;
+import com.caverock.androidsvg.PreserveAspectRatio;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import java.io.IOException;
@@ -31,6 +32,7 @@ public class SvgDecoder implements ResourceDecoder<InputStream, SVG> {
             if (height != SIZE_ORIGINAL) {
                 svg.setDocumentHeight(height);
             }
+            svg.setDocumentPreserveAspectRatio(PreserveAspectRatio.STRETCH);
             return new SimpleResource<>(svg);
         } catch (SVGParseException ex) {
             throw new IOException("Cannot load SVG from stream", ex);
