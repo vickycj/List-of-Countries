@@ -1,6 +1,14 @@
 # Country List And Details APP
 
-Architecture Design Pattern - MVVM (Model View ViewModel) 
+Architecture Design Pattern - MVVM (Model View ViewModel)
+
+ARCHITECTURE BASE APP
+-------------------------
+
+BASE Architecture is added from my own repo which contains the basic boilerplate code. <br>
+And application logic written on top of it.<br>
+[Base Architecture Fork From own repo](https://github.com/vickycj/Base-Architecture)
+
 
 Tech Stack
 -----------
