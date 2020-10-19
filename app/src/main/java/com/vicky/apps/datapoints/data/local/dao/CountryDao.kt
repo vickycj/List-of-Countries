@@ -15,7 +15,7 @@ import io.reactivex.Single
 interface CountryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveCountryList(book: CountryEntity)
+    fun saveCountryList(data: List<CountryEntity>)
 
     @Query("DELETE FROM CountryEntity")
     fun emptyCountryList()
@@ -27,5 +27,5 @@ interface CountryDao {
     fun getCountryById(id: Int) : Single<CountryEntity>
 
     @Query("SELECT COUNT(countryId) FROM CountryEntity")
-    fun getCountryRowCount(): Single<Int?>?
+    fun getCountryRowCount(): Single<Int>
 }

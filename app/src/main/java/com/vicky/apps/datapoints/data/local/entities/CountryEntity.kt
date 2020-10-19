@@ -11,25 +11,25 @@ class CountryEntity {
     var countryId: Int =0
 
     @ColumnInfo(name ="name")
-    val name: String = ""
+    var name: String = ""
 
     @ColumnInfo(name ="flag")
-    val flag: String = ""
+    var flag: String = ""
 
     @ColumnInfo(name ="nativeName")
-    val nativeName: String = ""
+    var nativeName: String = ""
 
     @ColumnInfo(name ="capital")
-    val capital: String = ""
+    var capital: String = ""
 
     @ColumnInfo(name ="population")
-    val population: Int = 0
+    var population: Int = 0
 
     @ColumnInfo(name ="subregion")
-    val subRegion: String = ""
+    var subRegion: String = ""
 
     @ColumnInfo(name ="cioc")
-    val cioc: String = ""
+    var cioc: String = ""
 
 
 }

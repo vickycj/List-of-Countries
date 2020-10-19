@@ -39,7 +39,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(com.vicky.apps.datapoints.R.layout.activity_main)
         //inilializingRecyclerView()
-        initializeValues()
+       // initializeValues()
 
     }
 

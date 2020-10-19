@@ -17,12 +17,14 @@ class Repository @Inject constructor(private val apiService: ApiService,
 
     fun getDataFromApi(): Single<List<CountryDetailsResponse>> = apiService.getDataFromService()
 
-    fun getCountryRowCount(): Single<Int?>? = appDataBase.countryDAO().getCountryRowCount()
+    fun getCountryRowCount(): Single<Int> = appDataBase.countryDAO().getCountryRowCount()
 
     fun getCountryBasicInfo(): Flowable<List<CountryBasicInfo>> = appDataBase.countryDAO().getAllCountries()
 
     fun getCountryDetailInfo(id: Int): Single<CountryEntity> = appDataBase.countryDAO().getCountryById(id)
 
     fun emptyCountryList() = appDataBase.countryDAO().emptyCountryList()
+
+    fun insertDataToDB(data: List<CountryEntity>) = appDataBase.countryDAO().saveCountryList(data)
 
 }
