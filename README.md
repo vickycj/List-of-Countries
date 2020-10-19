@@ -1,4 +1,4 @@
-# Base Android Architecture
+# Country List And Details APP
 
 Architecture Design Pattern - MVVM (Model View ViewModel) 
 
@@ -13,4 +13,14 @@ Tech Stack
 - Architecture Components - **ViewModel, LiveData, Android JetPAck Components**
 - Testing Framework       - **Junit, Mockito , Expresso, AndroidJunit4**
 
+APP FLOW
+-------------
 
+Splash Activity :
+Launch APP - Checks Local DB - No data - Fetches from API - Populates in DB - Moves to Main Activity
+
+Main Activity :
+Loads data from Local DB - search functionality filters the data and shows - Onclick any item moves to Detail Activity
+
+Details Activity :
+Shows the detailed info of the particular country
