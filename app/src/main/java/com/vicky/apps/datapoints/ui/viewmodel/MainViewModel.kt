@@ -35,18 +35,18 @@ class MainViewModel(private val repository: Repository,
 
     fun getDataFromRemote() {
 
-        compositeDisposable.add(generateApiCall().subscribeBy ( onSuccess = {
+       /* compositeDisposable.add(generateApiCall().subscribeBy ( onSuccess = {
             response.postValue(true)
         }, onError = {
             it.message?.let { it1 -> Log.d("valuessss", it1) }
-        } ))
+        } ))*/
 
 
     }
-    fun generateApiCall():Single<List<Any>>{
+    /*fun generateApiCall():Single<List<Any>>{
         return repository.getDataFromApi()
             .compose(schedulerProvider.getSchedulersForSingle())
-    }
+    }*/
 
 
 
