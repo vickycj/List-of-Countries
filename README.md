@@ -16,11 +16,11 @@ Tech Stack
 APP FLOW
 -------------
 
-Splash Activity :
+**Splash Activity** :<br>
 Launch APP - Checks Local DB - No data - Fetches from API - Populates in DB - Moves to Main Activity
 
-Main Activity :
+**Main Activity** : <br>
 Loads data from Local DB - search functionality filters the data and shows - Onclick any item moves to Detail Activity
 
-Details Activity :
+**Details Activity** : <br>
 Shows the detailed info of the particular country
