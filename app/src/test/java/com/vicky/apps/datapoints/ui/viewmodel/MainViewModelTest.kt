@@ -3,7 +3,7 @@ package com.vicky.apps.datapoints.ui.viewmodel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.vicky.apps.datapoints.common.SchedulerProvider
-import com.vicky.apps.datapoints.data.remote.Repository
+import com.vicky.apps.datapoints.data.Repository
 
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver

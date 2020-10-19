@@ -1,5 +1,6 @@
-package com.vicky.apps.datapoints.data.remote
+package com.vicky.apps.datapoints.data
 
+import com.vicky.apps.datapoints.data.remote.ApiService
 import io.reactivex.Single
 
 import javax.inject.Inject
