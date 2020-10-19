@@ -1,6 +1,7 @@
 package com.vicky.apps.datapoints.di
 
 import android.app.Application
+import androidx.room.Room
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -9,6 +10,7 @@ import com.vicky.apps.datapoints.base.NetworkConstant
 import com.vicky.apps.datapoints.common.SchedulerProvider
 import com.vicky.apps.datapoints.data.remote.ApiService
 import com.vicky.apps.datapoints.data.Repository
+import com.vicky.apps.datapoints.data.local.AppDataBase
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -69,11 +71,16 @@ class AppModule {
             .build().create(ApiService::class.java)
     }
 
+    @Provides
+    @Singleton
+    fun provideDatabaseInstance(application: Application) : AppDataBase {
+        return Room.databaseBuilder(application,AppDataBase::class.java,"CountryDB").build()
+    }
 
     @Provides
     @Singleton
-    fun provideRepository(apiService: ApiService): Repository {
-        return Repository(apiService)
+    fun provideRepository(apiService: ApiService, appDataBase: AppDataBase): Repository {
+        return Repository(apiService, appDataBase)
     }
 
 }
