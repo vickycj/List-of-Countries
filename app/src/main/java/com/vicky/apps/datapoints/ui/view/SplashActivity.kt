@@ -38,6 +38,8 @@ class SplashActivity : BaseActivity() {
                Toast.makeText(this, getString(R.string.api_failure_message), Toast.LENGTH_LONG).show()
             }
         })
+
+        viewModel.checkCountOfCountriesAndCallApi()
     }
 
     private fun moveToListActivity() {

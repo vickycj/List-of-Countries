@@ -6,6 +6,7 @@ import com.vicky.apps.datapoints.common.SchedulerProvider
 import com.vicky.apps.datapoints.data.Repository
 import com.vicky.apps.datapoints.data.local.entities.CountryEntity
 import com.vicky.apps.datapoints.data.reponse.CountryDetailsResponse
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
@@ -54,8 +55,16 @@ class SplashViewModel(
             country.flag = it.flag.toString()
             data.add(country)
         }
-        repository.insertDataToDB(data)
-        response.postValue(true)
+
+       saveData(data)
+    }
+
+    private fun saveData(data: MutableList<CountryEntity>) {
+        compositeDisposable.add(Observable.just(repository).
+        subscribeOn(schedulerProvider.io).subscribe {
+            repository.insertDataToDB(data)
+            response.postValue(true)
+        })
     }
 
 
