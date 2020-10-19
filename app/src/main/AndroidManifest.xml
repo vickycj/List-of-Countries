@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.view.DetailsActivity"></activity>
         <activity android:name=".ui.view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,8 +22,7 @@
         </activity>
         <activity
             android:name=".ui.view.MainActivity"
-            android:theme="@style/ActivityTheme">
-        </activity>
+            android:theme="@style/ActivityTheme"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

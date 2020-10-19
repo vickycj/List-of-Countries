@@ -1,5 +1,6 @@
 package com.vicky.apps.datapoints.di
 
+import com.vicky.apps.datapoints.ui.view.DetailsActivity
 import com.vicky.apps.datapoints.ui.view.MainActivity
 import com.vicky.apps.datapoints.ui.view.SplashActivity
 import dagger.Module
@@ -14,4 +15,7 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindSplashActivity(): SplashActivity
+
+    @ContributesAndroidInjector
+    abstract fun bindDetailsActivity(): DetailsActivity
 }
