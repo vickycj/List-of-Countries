@@ -48,7 +48,7 @@ class MainActivity : BaseActivity() {
     private fun inilializingRecyclerView() {
         recyclerView = recyclerViewList
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = DataAdapter(viewModel.getCountryData())
+        adapter = DataAdapter(viewModel.getCountryData(), this)
         recyclerView.adapter = adapter
     }
 
