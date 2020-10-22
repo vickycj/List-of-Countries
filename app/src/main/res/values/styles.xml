@@ -16,4 +16,8 @@
 
     </style>
 
+    <style name="ThemeSplash" parent="@android:style/Theme.DeviceDefault.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
 </resources>

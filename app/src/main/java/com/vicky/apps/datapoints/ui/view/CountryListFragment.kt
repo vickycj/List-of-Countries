@@ -70,6 +70,7 @@ class CountryListFragment : BaseFragment() {
 
     private fun onItemClicked(it: CountryEntity) {
         val transaction = activityContext.supportFragmentManager.beginTransaction()
+        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
         transaction.replace(activityContext.getBaseContainerId(),  CountryDetailsFragment.newInstance(viewModel.frameDataForDetails(it), it.name, it.flag))
             .addToBackStack(CountryDetailsFragment::class.simpleName)
         transaction.commit()

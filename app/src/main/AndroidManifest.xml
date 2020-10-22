@@ -15,7 +15,7 @@
         <activity
             android:launchMode="singleTop"
             android:name=".ui.view.MainActivity"
-            android:theme="@style/ActivityTheme">
+            android:theme="@style/ThemeSplash">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
