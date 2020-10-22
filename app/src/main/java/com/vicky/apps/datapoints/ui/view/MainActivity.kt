@@ -9,8 +9,13 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.vicky.apps.datapoints.R.layout.activity_main)
+        launchCountryFragment()
+    }
 
-
+    private fun launchCountryFragment() {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(getBaseContainerId(), CountryListFragment())
+        transaction.commit()
     }
 
 

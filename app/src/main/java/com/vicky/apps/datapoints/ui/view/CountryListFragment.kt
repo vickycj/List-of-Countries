@@ -69,13 +69,10 @@ class CountryListFragment : BaseFragment() {
     }
 
     private fun onItemClicked(it: CountryEntity) {
-
-
-
-       /* activityContext.replaceFragment(
-            activityContext.getBaseContainerId(),
-            CountryDetailsFragment.newInstance(viewModel.frameDataForDetails(it), it.name, it.flag)
-        )*/
+        val transaction = activityContext.supportFragmentManager.beginTransaction()
+        transaction.replace(activityContext.getBaseContainerId(),  CountryDetailsFragment.newInstance(viewModel.frameDataForDetails(it), it.name, it.flag))
+            .addToBackStack(CountryDetailsFragment::class.simpleName)
+        transaction.commit()
     }
 
     private fun initializeValues() {
