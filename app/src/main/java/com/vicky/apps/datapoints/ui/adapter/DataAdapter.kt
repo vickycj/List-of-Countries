@@ -1,9 +1,7 @@
 package com.vicky.apps.datapoints.ui.adapter
 
 
-import android.content.Context
-import android.net.Uri
-
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.ahmadrosid.svgloader.SvgLoader
 import com.vicky.apps.datapoints.R
-import com.vicky.apps.datapoints.common.svgdecoder.SVGUtils
+
 import com.vicky.apps.datapoints.data.local.entities.CountryEntity
-import com.vicky.apps.datapoints.ui.model.CountryBasicInfo
 
 
-class DataAdapter constructor(var data: List<CountryEntity>, var context: Context,   var onItemClick: ((CountryEntity) -> Unit)) : RecyclerView.Adapter<DataAdapter.DataViewHolder>() {
+class DataAdapter constructor(var data: List<CountryEntity>, var context: Activity,   var onItemClick: ((CountryEntity) -> Unit)) : RecyclerView.Adapter<DataAdapter.DataViewHolder>() {
 
 
 
@@ -34,9 +31,10 @@ class DataAdapter constructor(var data: List<CountryEntity>, var context: Contex
     override fun getItemCount(): Int = data.size
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
-        SVGUtils.getSVGRequestBuilder(context)
-            .load(Uri.parse(data[position].flag))
-            .into(holder.flagView);
+        SvgLoader.pluck()
+            .with(context)
+            .setPlaceHolder(R.drawable.avatar, R.drawable.avatar)
+            .load(data[position].flag, holder.flagView);
 
         holder.countryName.text = data[position].name
 

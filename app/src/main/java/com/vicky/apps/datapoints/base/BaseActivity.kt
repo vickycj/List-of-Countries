@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.ahmadrosid.svgloader.SvgLoader
 import com.vicky.apps.datapoints.R
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
@@ -34,6 +35,7 @@ open class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector ,
         super.onDestroy()
         compositeDisposable.clear()
         compositeDisposable.dispose()
+        SvgLoader.pluck().close();
     }
 
      override fun supportFragmentInjector(): AndroidInjector<androidx.fragment.app.Fragment> = fragmentInjector
