@@ -1,46 +1,45 @@
 package com.vicky.apps.datapoints.ui.view
 
 import android.net.Uri
-import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vicky.apps.datapoints.R
-import com.vicky.apps.datapoints.base.AppConstants.COUNTRY_DETAIL_ID
-import com.vicky.apps.datapoints.base.BaseActivity
+import com.vicky.apps.datapoints.base.AppConstants
+import com.vicky.apps.datapoints.base.BaseFragment
 import com.vicky.apps.datapoints.common.ViewModelProviderFactory
 import com.vicky.apps.datapoints.common.svgdecoder.SVGUtils
 import com.vicky.apps.datapoints.ui.adapter.DetailsAdapter
 import com.vicky.apps.datapoints.ui.viewmodel.DetailsViewModel
-import kotlinx.android.synthetic.main.activity_details.*
+import kotlinx.android.synthetic.main.fragment_country_details.*
 import javax.inject.Inject
 
-class DetailsActivity : BaseActivity() {
+class CountryDetailsFragment : BaseFragment() {
+
 
     @Inject
     lateinit var factory: ViewModelProviderFactory
 
-    private lateinit var viewModel:DetailsViewModel
+    private lateinit var viewModel: DetailsViewModel
 
     private lateinit var recyclerView: RecyclerView
 
     private lateinit var adapter: DetailsAdapter
 
+    override fun getLayout(): Int = R.layout.fragment_country_details
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details)
+    override fun viewLoaded() {
         initializeValues()
         inilializingRecyclerView()
-        val id = intent.getIntExtra(COUNTRY_DETAIL_ID,0)
-        viewModel.fetchSingleCountryDetails(id)
+        val id = arguments?.getInt(AppConstants.COUNTRY_DETAIL_ID,0)
+        id?.let { viewModel.fetchSingleCountryDetails(it) }
     }
 
     private fun inilializingRecyclerView() {
         recyclerView = detailsRecycler
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = DetailsAdapter(viewModel.getData(), this)
+        recyclerView.layoutManager = LinearLayoutManager(activityContext)
+        adapter = DetailsAdapter(viewModel.getData(), activityContext)
         recyclerView.adapter = adapter
     }
 
@@ -50,7 +49,7 @@ class DetailsActivity : BaseActivity() {
 
         viewModel.setCompositeData(compositeDisposable)
 
-        viewModel.getSubscription().observe(this, Observer {
+        viewModel.getSubscription().observe(viewLifecycleOwner, Observer {
             if(it){
                 successCallback()
             }else{
@@ -60,12 +59,11 @@ class DetailsActivity : BaseActivity() {
     }
 
     private fun failureCallback() {
-
     }
 
     private fun successCallback() {
-        title = viewModel.title
-        SVGUtils.getSVGRequestBuilder(this)
+        activityContext.title = viewModel.title
+        SVGUtils.getSVGRequestBuilder(activityContext)
             .load(Uri.parse(viewModel.flag))
             .into(flagMainView);
 

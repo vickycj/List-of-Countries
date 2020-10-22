@@ -17,7 +17,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class MainViewModel(
+class CountryListViewModel(
     private val repository: Repository,
     private val schedulerProvider: SchedulerProvider
 ) : ViewModel() {

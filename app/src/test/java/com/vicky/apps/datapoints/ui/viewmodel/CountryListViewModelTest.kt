@@ -19,7 +19,7 @@ import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class MainViewModelTest {
+class CountryListViewModelTest {
 
 
     @Mock
@@ -27,12 +27,12 @@ class MainViewModelTest {
 
     private val schedulerProvider = SchedulerProvider(Schedulers.trampoline(), Schedulers.trampoline())
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: CountryListViewModel
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        viewModel = MainViewModel(repository, schedulerProvider)
+        viewModel = CountryListViewModel(repository, schedulerProvider)
     }
 
     @After

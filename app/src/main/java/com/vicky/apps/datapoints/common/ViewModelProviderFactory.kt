@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.vicky.apps.datapoints.data.Repository
 import com.vicky.apps.datapoints.ui.viewmodel.DetailsViewModel
-import com.vicky.apps.datapoints.ui.viewmodel.MainViewModel
+import com.vicky.apps.datapoints.ui.viewmodel.CountryListViewModel
 import javax.inject.Inject
 
 
@@ -13,8 +13,8 @@ class ViewModelProviderFactory @Inject constructor(var repository: Repository, v
 
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            return MainViewModel(repository, schedulerProvider) as T
+        if (modelClass.isAssignableFrom(CountryListViewModel::class.java)) {
+            return CountryListViewModel(repository, schedulerProvider) as T
         }
         else if (modelClass.isAssignableFrom(DetailsViewModel::class.java)) {
             return DetailsViewModel(repository, schedulerProvider) as T
