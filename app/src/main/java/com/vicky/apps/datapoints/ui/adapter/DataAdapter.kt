@@ -14,10 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.vicky.apps.datapoints.R
 import com.vicky.apps.datapoints.common.svgdecoder.SVGUtils
+import com.vicky.apps.datapoints.data.local.entities.CountryEntity
 import com.vicky.apps.datapoints.ui.model.CountryBasicInfo
 
 
-class DataAdapter constructor(var data: List<CountryBasicInfo>, var context: Context,   var onItemClick: ((CountryBasicInfo) -> Unit)) : RecyclerView.Adapter<DataAdapter.DataViewHolder>() {
+class DataAdapter constructor(var data: List<CountryEntity>, var context: Context,   var onItemClick: ((CountryEntity) -> Unit)) : RecyclerView.Adapter<DataAdapter.DataViewHolder>() {
 
 
 
@@ -42,7 +43,7 @@ class DataAdapter constructor(var data: List<CountryBasicInfo>, var context: Con
         holder.container.setOnClickListener { onItemClick(data[position]) }
     }
 
-    fun updateData(loadData: List<CountryBasicInfo>){
+    fun updateData(loadData: List<CountryEntity>){
         this.data = loadData
         notifyDataSetChanged()
     }

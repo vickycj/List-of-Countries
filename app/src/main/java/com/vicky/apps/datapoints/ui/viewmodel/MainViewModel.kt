@@ -13,6 +13,8 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainViewModel(
@@ -27,8 +29,8 @@ class MainViewModel(
 
     private lateinit var compositeDisposable: CompositeDisposable
 
-    private var mainData: List<CountryBasicInfo> = ArrayList()
-    private var filteredData: List<CountryBasicInfo> = ArrayList()
+    private var mainData: List<CountryEntity> = ArrayList()
+    private var filteredData: List<CountryEntity> = ArrayList()
 
     fun getCountryData() = mainData
 
@@ -51,14 +53,14 @@ class MainViewModel(
 
     }
 
-    private fun generateCall(): Flowable<List<CountryBasicInfo>> {
+    private fun generateCall(): Flowable<List<CountryEntity>> {
         return repository.getCountryBasicInfo()
             .compose(schedulerProvider.getSchedulersForFlowable())
     }
 
     fun search(query: String): Completable = Completable.create { it ->
         val list = mainData.filter {
-            it.name.contains(query)
+            it.name.toLowerCase(Locale.getDefault()).contains(query.toLowerCase(Locale.getDefault()))
         }.toList()
         filteredData = list
         it.onComplete()

@@ -15,6 +15,7 @@ import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding2.widget.textChanges
 import com.vicky.apps.datapoints.base.AppConstants
+import com.vicky.apps.datapoints.data.local.entities.CountryEntity
 import com.vicky.apps.datapoints.ui.model.CountryBasicInfo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -65,7 +66,7 @@ class MainActivity : BaseActivity() {
         recyclerView.adapter = adapter
     }
 
-    private fun onItemClicked(it: CountryBasicInfo) {
+    private fun onItemClicked(it: CountryEntity) {
         val intent = Intent(this, DetailsActivity::class.java)
         intent.putExtra(AppConstants.COUNTRY_DETAIL_ID,it.countryId)
         startActivity(intent)
@@ -91,7 +92,7 @@ class MainActivity : BaseActivity() {
         updateData(viewModel.getCountryData())
     }
 
-    private fun updateData(data:List<CountryBasicInfo>){
+    private fun updateData(data:List<CountryEntity>){
         adapter.updateData(data)
     }
 
