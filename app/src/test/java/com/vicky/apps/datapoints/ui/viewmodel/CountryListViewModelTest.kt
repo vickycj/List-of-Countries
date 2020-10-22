@@ -40,7 +40,7 @@ class CountryListViewModelTest {
     }
 
 
-    fun getObject(): List<ResponseData>{
+    /*fun getObject(): List<ResponseData>{
         val token = object : TypeToken<List<ResponseData>>() {
 
         }
@@ -106,7 +106,7 @@ class CountryListViewModelTest {
         viewModel.setCompanyDetails(companyDetails)
 
         assert(viewModel.findCSingleCompanyData("5c5bb5ce54a9c166bf1c5b82")!!.company == "GYNKO")
-    }
+    }*/
 
 
 

@@ -7,6 +7,7 @@ import com.vicky.apps.datapoints.data.Repository
 import com.vicky.apps.datapoints.data.local.entities.CountryEntity
 import com.vicky.apps.datapoints.data.reponse.CountryDetailsResponse
 import com.vicky.apps.datapoints.ui.model.CountryBasicInfo
+import com.vicky.apps.datapoints.ui.model.KeyValue
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -119,6 +120,15 @@ class CountryListViewModel(
     private fun frameRowCount(): Single<Int> {
         return repository.getCountryRowCount()
             .compose(schedulerProvider.getSchedulersForSingle())
+    }
+
+     fun frameDataForDetails(it: CountryEntity) : ArrayList<KeyValue> {
+        val data: ArrayList<KeyValue> = ArrayList()
+        data.add(KeyValue("NAME",it.name))
+        data.add(KeyValue("CAPITAL",it.capital))
+        data.add(KeyValue("NATIVE NAME",it.nativeName))
+        data.add(KeyValue("SUB REGION",it.subRegion))
+         return data
     }
 
 

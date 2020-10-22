@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding2.widget.textChanges
 import com.vicky.apps.datapoints.R
-import com.vicky.apps.datapoints.base.AppConstants
 import com.vicky.apps.datapoints.base.BaseFragment
 import com.vicky.apps.datapoints.common.ViewModelProviderFactory
 import com.vicky.apps.datapoints.data.local.entities.CountryEntity
@@ -40,6 +39,7 @@ class CountryListFragment : BaseFragment() {
         initializeValues()
         inilializingRecyclerView()
         initialiseSearchView()
+        setTitle(getString(R.string.list_of_countries))
         viewModel.checkCountOfCountriesAndCallApi()
     }
 
@@ -69,9 +69,13 @@ class CountryListFragment : BaseFragment() {
     }
 
     private fun onItemClicked(it: CountryEntity) {
-     /*   val intent = Intent(this, DetailsActivity::class.java)
-        intent.putExtra(AppConstants.COUNTRY_DETAIL_ID,it.countryId)
-        startActivity(intent)*/
+
+
+
+       /* activityContext.replaceFragment(
+            activityContext.getBaseContainerId(),
+            CountryDetailsFragment.newInstance(viewModel.frameDataForDetails(it), it.name, it.flag)
+        )*/
     }
 
     private fun initializeValues() {
@@ -81,30 +85,28 @@ class CountryListFragment : BaseFragment() {
         viewModel.setCompositeData(compositeDisposable)
 
         viewModel.getCountryDataSubscription().observe(viewLifecycleOwner, Observer {
-                if (it) {
-                    successCallback()
-                } else {
-                    failureCallback()
-                }
-            })
+            if (it) {
+                successCallback()
+            } else {
+                failureCallback()
+            }
+        })
 
     }
 
 
-    private fun successCallback(){
+    private fun successCallback() {
         updateData(viewModel.getCountryData())
     }
 
-    private fun updateData(data:List<CountryEntity>){
+    private fun updateData(data: List<CountryEntity>) {
         adapter.updateData(data)
     }
 
 
-    private fun failureCallback(){
-        Toast.makeText(activity,"DATA FETCH failed", Toast.LENGTH_LONG).show()
+    private fun failureCallback() {
+        Toast.makeText(activity, "DATA FETCH failed", Toast.LENGTH_LONG).show()
     }
-
-
 
 
 }

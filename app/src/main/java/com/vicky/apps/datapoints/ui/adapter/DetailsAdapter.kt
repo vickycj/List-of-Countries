@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vicky.apps.datapoints.R
 import com.vicky.apps.datapoints.ui.model.KeyValue
 
-class DetailsAdapter constructor(var data: List<KeyValue>, var context: Context) : RecyclerView.Adapter<DetailsAdapter.DetailsViewHolder>() {
+class DetailsAdapter constructor(var data: ArrayList<KeyValue>, var context: Context) : RecyclerView.Adapter<DetailsAdapter.DetailsViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailsViewHolder {
@@ -28,7 +28,7 @@ class DetailsAdapter constructor(var data: List<KeyValue>, var context: Context)
         holder.value.text = data[position].value
     }
 
-    fun updateData(loadData: List<KeyValue>){
+    fun updateData(loadData: ArrayList<KeyValue>){
         this.data = loadData
         notifyDataSetChanged()
     }

@@ -1,3 +1,7 @@
 package com.vicky.apps.datapoints.ui.model
 
-data class KeyValue(var tile: String, var value: String)
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class KeyValue(var tile: String, var value: String) : Parcelable

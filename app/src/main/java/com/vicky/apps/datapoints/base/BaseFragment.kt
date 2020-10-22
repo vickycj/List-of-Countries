@@ -20,6 +20,10 @@ open abstract class BaseFragment : Fragment() {
 
     abstract fun viewLoaded()
 
+    protected fun setTitle (title : String) {
+        activityContext.title = title
+    }
+
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)

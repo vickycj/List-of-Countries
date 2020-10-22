@@ -1,27 +1,20 @@
 package com.vicky.apps.datapoints.ui.view
 
 import android.net.Uri
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vicky.apps.datapoints.R
 import com.vicky.apps.datapoints.base.AppConstants
 import com.vicky.apps.datapoints.base.BaseFragment
-import com.vicky.apps.datapoints.common.ViewModelProviderFactory
 import com.vicky.apps.datapoints.common.svgdecoder.SVGUtils
 import com.vicky.apps.datapoints.ui.adapter.DetailsAdapter
-import com.vicky.apps.datapoints.ui.viewmodel.DetailsViewModel
+import com.vicky.apps.datapoints.ui.model.KeyValue
 import kotlinx.android.synthetic.main.fragment_country_details.*
-import javax.inject.Inject
+
 
 class CountryDetailsFragment : BaseFragment() {
 
-
-    @Inject
-    lateinit var factory: ViewModelProviderFactory
-
-    private lateinit var viewModel: DetailsViewModel
 
     private lateinit var recyclerView: RecyclerView
 
@@ -29,44 +22,40 @@ class CountryDetailsFragment : BaseFragment() {
 
     override fun getLayout(): Int = R.layout.fragment_country_details
 
-    override fun viewLoaded() {
-        initializeValues()
-        inilializingRecyclerView()
-        val id = arguments?.getInt(AppConstants.COUNTRY_DETAIL_ID,0)
-        id?.let { viewModel.fetchSingleCountryDetails(it) }
+    companion object {
+        fun newInstance(it: ArrayList<KeyValue>, title: String, flag: String): CountryDetailsFragment {
+            val myFragment = CountryDetailsFragment()
+            val args = Bundle()
+            args.putString(AppConstants.COUNTRY_TITLE, title)
+            args.putString(AppConstants.COUNTRY_FLAG, flag)
+            args.putParcelableArrayList(AppConstants.COUNTRY_DETAIL_DATA, it)
+            myFragment.arguments = args
+            return myFragment
+        }
     }
+
+    override fun viewLoaded() {
+        inilializingRecyclerView()
+        val data : ArrayList<KeyValue>? = arguments?.getParcelableArrayList(AppConstants.COUNTRY_DETAIL_DATA)
+        val title = arguments?.getString(AppConstants.COUNTRY_TITLE)
+        val flag = arguments?.getString(AppConstants.COUNTRY_FLAG)
+        setDataInUI(data,title,flag)
+    }
+
 
     private fun inilializingRecyclerView() {
         recyclerView = detailsRecycler
         recyclerView.layoutManager = LinearLayoutManager(activityContext)
-        adapter = DetailsAdapter(viewModel.getData(), activityContext)
+        adapter = DetailsAdapter(ArrayList(), activityContext)
         recyclerView.adapter = adapter
     }
 
-    private fun initializeValues() {
 
-        viewModel = ViewModelProviders.of(this, factory).get(DetailsViewModel::class.java)
-
-        viewModel.setCompositeData(compositeDisposable)
-
-        viewModel.getSubscription().observe(viewLifecycleOwner, Observer {
-            if(it){
-                successCallback()
-            }else{
-                failureCallback()
-            }
-        })
-    }
-
-    private fun failureCallback() {
-    }
-
-    private fun successCallback() {
-        activityContext.title = viewModel.title
+    private fun setDataInUI(data : ArrayList<KeyValue>?, title: String?, flag: String?) {
+        title?.let { setTitle(it) }
         SVGUtils.getSVGRequestBuilder(activityContext)
-            .load(Uri.parse(viewModel.flag))
+            .load(Uri.parse(flag))
             .into(flagMainView);
-
-        adapter.updateData(viewModel.getData())
+        data?.let { adapter.updateData(it) }
     }
 }
