@@ -3,21 +3,21 @@ package com.vicky.apps.datapoints.ui.view
 import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
-import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.vicky.apps.datapoints.R
+import com.vicky.apps.datapoints.base.AppConstants
 import com.vicky.apps.datapoints.base.BaseFragment
 import com.vicky.apps.datapoints.common.ViewModelProviderFactory
 import com.vicky.apps.datapoints.data.reponse.WeatherResponse
 import com.vicky.apps.datapoints.ui.viewmodel.WeatherViewModel
+import kotlinx.android.synthetic.main.fragment_weather.*
+import java.util.*
 import javax.inject.Inject
 
 
@@ -32,14 +32,20 @@ class WeatherFragment : BaseFragment() {
 
     override fun getLayout(): Int =  R.layout.fragment_weather
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun viewLoaded() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activityContext)
         initializeValues()
         intialiseLocationListener()
+
+    }
+
+    private fun isItNight() : Boolean {
+        val isNight: Boolean
+        val cal: Calendar = Calendar.getInstance()
+        val hour: Int = cal.get(Calendar.HOUR_OF_DAY)
+        isNight = hour < 6 || hour > 18
+        return isNight
     }
 
     private fun intialiseLocationListener() {
@@ -51,7 +57,7 @@ class WeatherFragment : BaseFragment() {
             return
         }
         fusedLocationClient.lastLocation
-            .addOnSuccessListener { location : Location? ->
+            .addOnSuccessListener { location: Location? ->
                 getCurrentLocation(location)
             }
     }
@@ -75,9 +81,98 @@ class WeatherFragment : BaseFragment() {
     }
 
     private fun successCallback(it: WeatherResponse) {
-        it.name?.let { it1 -> Log.d("weather", it1) }
+        val weatherId = it.weather?.get(0)?.let {
+            it.id
+        }
+        val weatherDescription = it.weather?.get(0)?.let {
+            it.description
+        }
+        setWeatherAnimation(weatherId)
+
+      name.text = "Location : ${it.name}"
+      pressure.text = "Weather : ${weatherDescription}"
+      temperature.text = "Temperature : ${it.main?.temp}"
+      feelsLike.text = "Feels Like : ${it.main?.feelsLike}"
     }
 
+    private fun setWeatherAnimation(weatherId: Int?) {
+        weatherId?. let {
+            when(weatherId) {
+                in 200..232 -> { updateWeatherCondition(AppConstants.THUNDERSTORM)}
+                in 300..321 -> {updateWeatherCondition(AppConstants.DRIZZLE)}
+                in 500..531 -> {updateWeatherCondition(AppConstants.RAIN)}
+                in 600..622 -> {updateWeatherCondition(AppConstants.SNOW)}
+                in 701..781 -> {updateWeatherCondition(AppConstants.ATMOSHPHERE)}
+                800 -> {updateWeatherCondition(AppConstants.CLEAR)}
+                in 801..804 -> {updateWeatherCondition(AppConstants.CLOUDS)}
+            }
+        }
+    }
+
+    private fun updateWeatherCondition(weather: String) {
+        val animationElement = animationView
+        updateBackGround()
+        when (weather) {
+            AppConstants.THUNDERSTORM -> {
+              var id = 0
+                id = if(isItNight()) {
+                    R.raw.weather_storm_night
+                } else {
+                    R.raw.weather_storm
+                }
+                animationElement.setAnimation(id)
+            }
+
+            AppConstants.RAIN, AppConstants.DRIZZLE -> {
+                var id = 0
+                id = if(isItNight()) {
+                    R.raw.weather_rainynight
+                } else {
+                    R.raw.weather_partly_shower
+                }
+                animationElement.setAnimation(id)
+            }
+
+
+            AppConstants.CLOUDS -> {
+                var id = 0
+                id = if(isItNight()) {
+                    R.raw.weather_cloudynight
+                } else {
+                    R.raw.weather_partly_cloudy
+                }
+                animationElement.setAnimation(id)
+            }
+
+            AppConstants.CLEAR, AppConstants.ATMOSHPHERE -> {
+                var id = 0
+                id = if(isItNight()) {
+                    R.raw.weather_night
+                } else {
+                    R.raw.weather_sunny
+                }
+                animationElement.setAnimation(id)
+            }
+
+            AppConstants.SNOW -> {
+                var id = 0
+                id = if(isItNight()) {
+                    R.raw.weather_snownight
+                } else {
+                    R.raw.weather_snow_sunny
+                }
+                animationElement.setAnimation(id)
+            }
+        }
+    }
+
+    private fun updateBackGround() {
+        if(isItNight()) {
+           parent.setBackgroundResource(R.drawable.night_bg)
+        }else {
+            parent.setBackgroundResource(R.drawable.day_bg)
+        }
+    }
 
 
     private fun getCurrentLocation(location: Location?) {

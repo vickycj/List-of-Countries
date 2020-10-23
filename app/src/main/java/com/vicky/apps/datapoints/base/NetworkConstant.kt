@@ -28,6 +28,7 @@ object NetworkConstant {
             .appendQueryParameter("lat", lat)
             .appendQueryParameter("lon", lang)
             .appendQueryParameter("appid", API_KEY)
+            .appendQueryParameter("units", "metric")
         return builder.build().toString()
     }
 }
