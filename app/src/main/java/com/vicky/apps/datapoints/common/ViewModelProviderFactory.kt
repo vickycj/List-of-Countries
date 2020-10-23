@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.vicky.apps.datapoints.data.Repository
 import com.vicky.apps.datapoints.ui.viewmodel.CountryListViewModel
+import com.vicky.apps.datapoints.ui.viewmodel.WeatherViewModel
 import javax.inject.Inject
 
 
@@ -15,6 +16,9 @@ class ViewModelProviderFactory @Inject constructor(var repository: Repository, v
         if (modelClass.isAssignableFrom(CountryListViewModel::class.java)) {
             return CountryListViewModel(repository, schedulerProvider) as T
         }
-        throw  IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName())
+        else if(modelClass.isAssignableFrom(WeatherViewModel::class.java)){
+            return WeatherViewModel(repository, schedulerProvider) as T
+        }
+        throw  IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
 }
