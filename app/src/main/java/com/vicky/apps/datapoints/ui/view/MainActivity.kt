@@ -76,6 +76,7 @@ class MainActivity : BaseActivity() {
                             Manifest.permission.ACCESS_FINE_LOCATION
                         ) == PackageManager.PERMISSION_GRANTED)
                     ) {
+                        launchWeatherFragment()
                         Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT)
                             .show()
                     }

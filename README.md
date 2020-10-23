@@ -24,11 +24,12 @@ Tech Stack
 APP FLOW
 -------------
 
-**Splash Activity** :<br>
-Launch APP - Checks Local DB - No data - Fetches from API - Populates in DB - Moves to Main Activity
-
-**Main Activity** : <br>
+**Country List Fragment** :<br>
+Launch APP - Checks Local DB - No data - Fetches from API - Populates in DB -
 Loads data from Local DB - search functionality filters the data and shows - Onclick any item moves to Detail Activity
 
-**Details Activity** : <br>
+**Country Details Fragment** : <br>
 Shows the detailed info of the particular country
+
+**Weather Fragment** : <br>
+Click the Overflow button - Weather - Shows the weather for the current user location in the day and night format.
