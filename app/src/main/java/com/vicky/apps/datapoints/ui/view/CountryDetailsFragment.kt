@@ -59,4 +59,9 @@ class CountryDetailsFragment : BaseFragment() {
             .load(flag, flagMainView);
         data?.let { adapter.updateData(it) }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        SvgLoader.pluck().close();
+    }
 }

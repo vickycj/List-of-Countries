@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ahmadrosid.svgloader.SvgLoader
 import com.jakewharton.rxbinding2.widget.textChanges
 import com.vicky.apps.datapoints.R
 import com.vicky.apps.datapoints.base.BaseFragment
@@ -104,6 +105,11 @@ class CountryListFragment : BaseFragment() {
 
     private fun failureCallback() {
         Toast.makeText(activity, "DATA FETCH failed", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        SvgLoader.pluck().close();
     }
 
 

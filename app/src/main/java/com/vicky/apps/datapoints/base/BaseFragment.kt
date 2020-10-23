@@ -37,9 +37,13 @@ open abstract class BaseFragment : Fragment() {
         return  inflater.inflate(getLayout(), container, false)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activityContext = activity as BaseActivity
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activityContext = activity as BaseActivity
         viewLoaded()
     }
 

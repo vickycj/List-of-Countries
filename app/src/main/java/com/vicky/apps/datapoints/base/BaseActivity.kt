@@ -35,7 +35,6 @@ open class BaseActivity : AppCompatActivity(), HasSupportFragmentInjector ,
         super.onDestroy()
         compositeDisposable.clear()
         compositeDisposable.dispose()
-        SvgLoader.pluck().close();
     }
 
      override fun supportFragmentInjector(): AndroidInjector<androidx.fragment.app.Fragment> = fragmentInjector

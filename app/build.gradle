@@ -55,6 +55,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0-alpha01'
     implementation 'com.github.ar-android:AndroidSvgLoader:1.0.2'
     implementation "com.airbnb.android:lottie:$rootProject.lottieVersion"
+    implementation "com.google.android.gms:play-services-location:17.1.0"
 
     //Life Cycle libs
     implementation "androidx.lifecycle:lifecycle-viewmodel:$rootProject.lifecycle_version"
