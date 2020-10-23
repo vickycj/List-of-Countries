@@ -3,7 +3,9 @@ package com.vicky.apps.datapoints.ui.view
 import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
+import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.widget.Toast
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.lifecycle.Observer
@@ -32,6 +34,14 @@ class WeatherFragment : BaseFragment() {
 
     override fun getLayout(): Int =  R.layout.fragment_weather
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu.clear();
+    }
 
     override fun viewLoaded() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activityContext)

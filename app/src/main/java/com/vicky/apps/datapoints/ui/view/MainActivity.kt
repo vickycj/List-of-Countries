@@ -3,9 +3,10 @@ package com.vicky.apps.datapoints.ui.view
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.vicky.apps.datapoints.R
 import com.vicky.apps.datapoints.base.BaseActivity
 
@@ -16,8 +17,7 @@ class MainActivity : BaseActivity() {
         setTheme(R.style.ActivityTheme);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        requestWeatherPermission()
-
+        launchCountryFragment()
     }
 
     private fun launchCountryFragment() {
@@ -29,8 +29,9 @@ class MainActivity : BaseActivity() {
 
     private fun launchWeatherFragment() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
         transaction.replace(getBaseContainerId(), WeatherFragment())
+            .addToBackStack(WeatherFragment::class.simpleName)
         transaction.commit()
     }
 
@@ -75,7 +76,6 @@ class MainActivity : BaseActivity() {
                             Manifest.permission.ACCESS_FINE_LOCATION
                         ) == PackageManager.PERMISSION_GRANTED)
                     ) {
-                        launchWeatherFragment()
                         Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT)
                             .show()
                     }
@@ -85,6 +85,23 @@ class MainActivity : BaseActivity() {
                 return
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.weather_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.weatherIcons -> {
+                requestWeatherPermission()
+            }
+            android.R.id.home -> {
+                onSupportNavigateUp()
+            }
+        }
+        return true
     }
 
 }

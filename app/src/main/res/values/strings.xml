@@ -5,4 +5,5 @@
     <string name="api_failure_message">API call failed</string>
     <string name="search_countries">Search countries</string>
     <string name="weather_info">Weather Info</string>
+    <string name="weather">Weather</string>
 </resources>
